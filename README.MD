@@ -1,0 +1,2 @@
+We've got usernames working, not we need to create validation with the ECDSA keys
+Once usernames are done, lets get push notifications working https://github.com/dotnet-presentations/blazor-workshop/blob/main/docs/09-progressive-web-app.md
