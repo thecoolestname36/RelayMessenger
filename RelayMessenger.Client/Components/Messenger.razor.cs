@@ -13,7 +13,7 @@ namespace RelayMessenger.Client.Components;
 [SupportedOSPlatform("browser")]
 public partial class Messenger : ComponentBase, IAsyncDisposable
 {
-    private record Message(Guid Id, string Content);
+    private record Message(Guid Id, string Content, string? Class = "");
     private ConcurrentBag<Message> _messageQueue = [];
     private CancellationTokenSource _cancellationTokenSource = new();
     private string Input { get; set; } = "";
@@ -49,10 +49,10 @@ public partial class Messenger : ComponentBase, IAsyncDisposable
         return Task.CompletedTask;
     }
 
-    void AddPlainTextMessage(object? sender, string? input)
+    void AddPlainTextMessage(object? sender, string? input, string? cssClass = "")
     {
         // Add to queue and notify view to update
-        _messageQueue.Add(new(Guid.NewGuid(), input ?? string.Empty));
+        _messageQueue.Add(new(Guid.NewGuid(), input ?? string.Empty, cssClass));
         StateHasChanged();
     }
 
@@ -78,9 +78,9 @@ public partial class Messenger : ComponentBase, IAsyncDisposable
 
     async Task RelayCiphertext()
     {
-        var message = $"[{DateTime.UtcNow:h:mm:ss tt zz} RelayCipherText]  {Input}";
-        await RelayService.RelayCiphertext(message);
-        AddPlainTextMessage(this, message);
+        var prefix = $"[{DateTime.UtcNow:h:mm:ss tt zz} RelayCipherText]";
+        await RelayService.RelayCiphertext($"{prefix} {Input}");
+        AddPlainTextMessage(this, $"{Input} {prefix}", "textAlignRight");
     }
 
     async Task CreateIdentity()

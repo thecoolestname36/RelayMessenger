@@ -5,7 +5,7 @@
     <div class="messageContainer">
         @foreach (var message in _messageQueue)
         {
-            <p @key="message.Id" style="border: 1px solid black">@message.Content</p>
+            <p @key="message.Id" style="border: 1px solid black" class="@message.Class">@message.Content</p>
         }
     </div>
 </div>

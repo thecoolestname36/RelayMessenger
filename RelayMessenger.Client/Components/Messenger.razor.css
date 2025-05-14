@@ -6,3 +6,7 @@ div.messageContainer {
     display: flex;
     flex-direction: column-reverse;
 }
+
+p.textAlignRight {
+    text-align: right;
+}
