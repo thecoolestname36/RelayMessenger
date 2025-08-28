@@ -1,5 +1,5 @@
 using RelayMessenger.Components;
-using RelayMessenger.Server;
+using RelayMessenger.API;
 using RelayMessenger.Shared;
 
 var builder = WebApplication.CreateBuilder(args);

@@ -8,7 +8,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RelayMessenger.Client", "Re
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RelayMessenger.Shared", "RelayMessenger.Shared\RelayMessenger.Shared.csproj", "{CF8A7D6E-6E3A-4CA3-AC40-054217FEEB0A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RelayMessenger.Server", "RelayMessenger.Server\RelayMessenger.Server.csproj", "{7A3B4BFD-AD88-4B18-9D66-EAC22D93CE68}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RelayMessenger.API", "RelayMessenger.API\RelayMessenger.API.csproj", "{7A3B4BFD-AD88-4B18-9D66-EAC22D93CE68}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

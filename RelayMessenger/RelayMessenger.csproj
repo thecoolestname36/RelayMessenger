@@ -10,7 +10,7 @@
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.Server" Version="8.0.12" />
     <ProjectReference Include="..\RelayMessenger.Client\RelayMessenger.Client.csproj" />
-    <ProjectReference Include="..\RelayMessenger.Server\RelayMessenger.Server.csproj" />
+    <ProjectReference Include="..\RelayMessenger.API\RelayMessenger.API.csproj" />
   </ItemGroup>
 
   <ItemGroup>

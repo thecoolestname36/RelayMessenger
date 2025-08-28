@@ -20,14 +20,14 @@ eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpac
 
 /***/ }),
 
-/***/ "./src/pushNotifications.js":
-/*!**********************************!*\
-  !*** ./src/pushNotifications.js ***!
-  \**********************************/
+/***/ "./src/messageNotifications.js":
+/*!*************************************!*\
+  !*** ./src/messageNotifications.js ***!
+  \*************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
-eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpack_require__.d(__webpack_exports__, {\n/* harmony export */   \"default\": () => (__WEBPACK_DEFAULT_EXPORT__)\n/* harmony export */ });\nclass PushNotifications {\n    // Note: Replace with your own key pair before deploying\n    #applicationServerPublicKey = 'BLC8GOevpcpjQiLkO7JmVClQjycvTCYWm6Cq_a7wJZlstGTVZvwGFFHMYfXt6Njyvgx_GlXJeo5cSiZ1y4JOx1o';\n\n    async requestSubscription() {\n        const worker = await navigator.serviceWorker.getRegistration();\n        const existingSubscription = await worker.pushManager.getSubscription();\n        if (!existingSubscription) {\n            const newSubscription = await this.subscribe(worker);\n            if (newSubscription) {\n                // Serialize here and deserialize in c#\n                return JSON.stringify({\n                    Url: newSubscription.endpoint,\n                    P256dh: this.arrayBufferToBase64(newSubscription.getKey('p256dh')),\n                    Auth: this.arrayBufferToBase64(newSubscription.getKey('auth'))\n                });\n            }\n        }\n    }\n\n    arrayBufferToBase64(buffer) {\n        // https://stackoverflow.com/a/9458996\n        var binary = '';\n        var bytes = new Uint8Array(buffer);\n        var len = bytes.byteLength;\n        for (var i = 0; i < len; i++) {\n            binary += String.fromCharCode(bytes[i]);\n        }\n        return window.btoa(binary);\n    }\n\n    async subscribe(worker) {\n        try {\n            return await worker.pushManager.subscribe({\n                userVisibleOnly: true,\n                applicationServerKey: this.#applicationServerPublicKey\n            });\n        } catch (error) {\n            if (error.name === 'NotAllowedError') {\n                return null;\n            }\n            throw error;\n        }\n    }\n}\n\n/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (new PushNotifications());\n\n//# sourceURL=webpack://npm/./src/pushNotifications.js?");
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpack_require__.d(__webpack_exports__, {\n/* harmony export */   \"requestPermission\": () => (/* binding */ requestPermission)\n/* harmony export */ });\nasync function requestPermission() {\n    // Ask the user for permission to send notifications\n    if ('Notification' in window && Notification.permission !== 'denied') {\n        Notification.requestPermission().then(permission => {\n            if (permission === 'granted') {\n                console.log('Notification permission granted');\n            } else {\n                console.log('Notification permission denied');\n            }\n        });\n    }\n}\n\n//# sourceURL=webpack://npm/./src/messageNotifications.js?");
 
 /***/ }),
 
@@ -37,7 +37,7 @@ eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpac
   \*******************************/
 /***/ ((__unused_webpack_module, __unused_webpack_exports, __webpack_require__) => {
 
-eval("// Add imported npm packages to this object for access in scripts\r\nwindow.relayMessenger = {\r\n    subtleCrypto: __webpack_require__(/*! ./subtleCrypto */ \"./src/subtleCrypto.js\"),\r\n    blazorDom: __webpack_require__(/*! ./blazorDom */ \"./src/blazorDom.js\"),\r\n    pushNotifications: __webpack_require__(/*! ./pushNotifications */ \"./src/pushNotifications.js\"),\r\n};\r\n\n\n//# sourceURL=webpack://npm/./src/relayMessenger.js?");
+eval("// Add imported npm packages to this object for access in scripts\r\nwindow.relayMessenger = {\r\n    subtleCrypto: __webpack_require__(/*! ./subtleCrypto */ \"./src/subtleCrypto.js\"),\r\n    blazorDom: __webpack_require__(/*! ./blazorDom */ \"./src/blazorDom.js\"),\r\n    messageNotifications: __webpack_require__(/*! ./messageNotifications */ \"./src/messageNotifications.js\"),\r\n};\r\n\n\n//# sourceURL=webpack://npm/./src/relayMessenger.js?");
 
 /***/ }),
 

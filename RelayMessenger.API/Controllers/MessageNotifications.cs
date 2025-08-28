@@ -1,6 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
 
-namespace RelayMessenger.Server.Controllers;
+namespace RelayMessenger.API.Controllers;
 
 [ApiController]
 public class MessageNotifications
