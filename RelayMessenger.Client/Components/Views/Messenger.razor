@@ -1,0 +1,21 @@
+@rendermode InteractiveWebAssembly
+
+<div>
+    <b>Messages (<i>@(OperatingSystem.IsBrowser() ? "Wasm" : "Server")</i>)</b>
+    <div class="messageContainer">
+        @foreach (var message in _messageQueue)
+        {
+            <p @key="message.Id" style="border: 1px solid black" class="@message.Class">@message.Content</p>
+        }
+    </div>
+</div>
+
+<div>
+    <h5>Input</h5>
+    <InputTextArea
+        @bind-value="Input"
+        ValueExpression="@(() => Input)"
+        cols="80" />
+    <button class="btn btn-primary" @onclick="RelayCiphertext" disabled="@IsLoading">Relay Ciphertext</button>
+    <button class="btn btn-primary" @onclick="CreateIdentity" disabled="@(IsLoading || HasIdentity)">Create Identity</button>
+</div>
