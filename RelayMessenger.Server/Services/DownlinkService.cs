@@ -5,7 +5,7 @@ using System.Reflection;
 using System.Text;
 using System.Text.Json;
 using System.Threading.Tasks;
-using RelayMessenger.Server.Hubs;
+using RelayMessenger.Server.Configuration;
 using RelayMessenger.Server.Services;
 using RelayMessenger.Shared;
 using RelayMessenger.Shared.Models;
@@ -16,11 +16,14 @@ namespace RelayMessenger.Server.Services;
 public class DownlinkService
 {
     private readonly IMqttGateway _mqttGateway;
+    private readonly GatewayOptions _options;
 
-    public DownlinkService(IMqttGateway mqttGateway)
+    public DownlinkService(IMqttGateway mqttGateway, GatewayOptions options)
     {
         _mqttGateway = mqttGateway;
+        _options = options;
     }
+
 
     public async Task PublishDownlinkAsync(SendMessageRequest request, bool useProtobuf = false)
     {
@@ -29,12 +32,12 @@ public class DownlinkService
 
         if (useProtobuf)
         {
-            topic = "msh/US/2/mqtt/";
+            topic = $"msh/{_options.Region}/2/mqtt/";
             payload = BuildProtobufDownlink(request);
         }
         else
         {
-            topic = "msh/US/2/json/mqtt/";
+            topic = $"msh/{_options.Region}/2/json/mqtt/";
             payload = Encoding.UTF8.GetBytes(JsonSerializer.Serialize(request));
         }
 

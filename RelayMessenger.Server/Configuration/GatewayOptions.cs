@@ -12,4 +12,5 @@ public sealed class GatewayOptions
 
     public string HubUrl { get; set; } = default!;
     public string NodesEndpoint { get; set; } = default!;
+    public string Region { get; set; } = "US";
 }
