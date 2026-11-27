@@ -57,3 +57,5 @@ nunit-*.xml
 .idea/
 
 RelayMessenger.Server/npm/node_modules/
+
+certificate.pfx

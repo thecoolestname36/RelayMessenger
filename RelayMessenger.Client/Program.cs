@@ -1,33 +1,22 @@
 using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
-using Microsoft.AspNetCore.SignalR.Client;
-using RelayMessenger.Shared;
-using RelayMessenger.Client.Clients;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
+using Microsoft.AspNetCore.Components.Web;
 using RelayMessenger.Client.Services;
+using RelayMessenger.Shared;
+using RelayMessenger.Client;
+using RelayMessenger.Client.Interops;
 
 var builder = WebAssemblyHostBuilder.CreateDefault(args);
+builder.RootComponents.Add<App>("#app");
+builder.RootComponents.Add<HeadOutlet>("head::after");
 
-if (OperatingSystem.IsBrowser())
-{
-    builder.Services.AddHttpClient<RelayApiClient>("RelayMessenger.API", client => client.BaseAddress = new UriBuilder(new Uri(builder.HostEnvironment.BaseAddress))
-    {
-        Path = Routing.RelayApi.Path
-    }.Uri);
-    builder.Services.AddScoped(provider => provider.GetRequiredService<IHttpClientFactory>().CreateClient("RelayMessenger.API"));
-    builder.Services.AddSingleton<ClientCryptoService>();
-    builder.Services.AddSingleton<ClientIdentityService>();
-    builder.Services.AddScoped<RelayHubClient>(provider =>
-    {
-        var hub =  new HubConnectionBuilder().WithUrl(new UriBuilder(new Uri(builder.HostEnvironment.BaseAddress))
-        {
-            Path = Routing.RelayHub.Path,
-        }.Uri)
-            //.WithStatefulReconnect() TODO: Only if we need to, figure out a authentication process so a user doesn't have to renegotiate certs every connection
-            .Build();
-        hub.KeepAliveInterval = TimeSpan.FromSeconds(15);
-        hub.ServerTimeout = TimeSpan.FromSeconds(45);
-        return new RelayHubClient(hub);
-    });
-    builder.Services.AddScoped<ClientRelayService>();
-}
+// Add services to the container.
+builder.Services.AddScoped(sp => new HttpClient { BaseAddress = new Uri("https://localhost:5001") });
+
+builder.Services.AddScoped<SignalRService>(sp => 
+    new SignalRService("https://localhost:5001/relayhub", sp.GetRequiredService<ILogger<SignalRService>>()));
+builder.Services.AddScoped<NodeService>();
+builder.Services.AddScoped<GoogleMapsInterop>();
 
 await builder.Build().RunAsync();

@@ -1,0 +1,31 @@
+{
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "build-server",
+            "type": "process",
+            "command": "dotnet",
+            "args": [
+                "build",
+                "RelayMessenger.Server/RelayMessenger.Server.csproj",
+                "--nologo",
+                "-v",
+                "normal"
+            ],
+            "problemMatcher": "$msCompile"
+        },
+        {
+            "label": "build-tests",
+            "type": "process",
+            "command": "dotnet",
+            "args": [
+                "build",
+                "RelayMessenger.Server.UnitTests/RelayMessenger.Server.UnitTests.csproj",
+                "--nologo",
+                "-v",
+                "normal"
+            ],
+            "problemMatcher": "$msCompile"
+        }
+    ]
+}

@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <base href="/" />
+    <title>RelayMessenger</title>
+    <link rel="stylesheet" href="bootstrap/bootstrap.min.css" />
+    <link rel="stylesheet" href="bootstrap-icons/bootstrap-icons.min.css" />
+    <link rel="stylesheet" href="app.css" />
+    <link rel="stylesheet" href="RelayMessenger.Client.styles.css" />
+</head>
+<body class="bg-light">
+    <div id="app">Loading...</div>
+
+    <script async src="https://maps.googleapis.com/maps/api/js?key=YOUR_GOOGLE_MAPS_API_KEY&loading=async&callback=window.relayMessenger.googleMaps.init&libraries=maps,marker"></script>
+    <script src="js/googleMaps.js"></script>
+    <script src="_framework/blazor.webassembly.js"></script>
+</body>
+</html>
