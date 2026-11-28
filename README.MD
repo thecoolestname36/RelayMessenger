@@ -26,10 +26,10 @@ RelayMessenger is a .NET 10 Blazor WebAssembly (WASM) PWA acting as a dual-purpo
 
 ## Development Commands
 ```bash
-dotnet build RelayMessenger.Server/RelayMessenger.Server.csproj --nologo -v minimal
-dotnet build RelayMessenger.Client/RelayMessenger.Client.csproj --nologo -v minimal
-dotnet test RelayMessenger.Server.UnitTests/RelayMessenger.Server.UnitTests.csproj --nologo -v minimal
-dotnet test RelayMessenger.Server.UnitTests/RelayMessenger.Server.UnitTests.csproj --filter "FullyQualifiedName~<TestName>" --nologo -v minimal
+dotnet build RelayMessenger.Server/RelayMessenger.Server.csproj --nologo -v normal
+dotnet build RelayMessenger.Client/RelayMessenger.Client.csproj --nologo -v normal
+dotnet test RelayMessenger.Server.UnitTests/RelayMessenger.Server.UnitTests.csproj --nologo -v normal
+dotnet test RelayMessenger.Server.UnitTests/RelayMessenger.Server.UnitTests.csproj --filter "FullyQualifiedName~<TestName>" --nologo -v normal
 ```
 
 ## AI Agent Context
